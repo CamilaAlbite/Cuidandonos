@@ -2,13 +2,19 @@ package ar.edu.utn.frba.dds;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class Cuidador {
-    String nombre;
-    String apellido;
-    String direccion;
-    int edad;
-    String sexo;
-    List<Viaje> viajesDeInteresados;
+    private String nombre;
+    private String apellido;
+    private String direccion;
+    private int edad;
+    private String sexo;
+    private List<Viaje> viajesDeInteresados;
+    private List<TipoMensaje> notificaciones;
+    private boolean notificacionesActivas;
 
     public Cuidador(String nombre, String apellido, String direccion, int edad, String sexo) {
         this.nombre = nombre;
@@ -26,12 +32,17 @@ public class Cuidador {
         viajesDeInteresados.remove(viajeARechazar);
        //TODO:informar al transeunte
     }
-    public void aceptarCuidado(Viaje viaje){
-        viaje.cuidadores.add(this);
-        //TODO:informar al transeunte
-    }
-    public void serNotificado(TipoMensaje tipo, String mensaje){
-        //TODO:ver como implementar las notificaciones
-    }
 
+    //No tenemos criterios de aceptacion, por ahora siempre es true
+    public boolean aceptarViaje() {
+    	return true;
+    }
+    
+    public void activarNotificaciones() {
+    	this.notificacionesActivas = true;
+    }
+    
+    public void desactivarNotificaciones() {
+    	this.notificacionesActivas = false;
+    }
 }

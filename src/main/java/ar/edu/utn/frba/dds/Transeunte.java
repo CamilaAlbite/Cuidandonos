@@ -1,16 +1,26 @@
 package ar.edu.utn.frba.dds;
 
-import ar.edu.utn.frba.dds.alertas.MedioDeAlerta;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class Transeunte {
-    String nombre;
-    String apellido;
-    String direccion;
-    int edad;
-    String sexo;
-    Viaje viajeEnCurso;
+	private String nombre;
+	private String apellido;
+	private String direccion;
+	private int edad;
+	private String sexo;
+	private Viaje viajeEnCurso;
+	private List<TipoMensaje> notificaciones = new ArrayList<>();
+	private boolean notificacionesActivas;
+	
+	public Transeunte() {
+		
+	}
 
     public Transeunte(String nombre, String apellido, String direccion, int edad, String sexo) {
         this.nombre = nombre;
@@ -27,14 +37,13 @@ public class Transeunte {
     }
     void iniciarViaje(Viaje viaje){
         this.viajeEnCurso = viaje;
-        viajeEnCurso.cuidadores.forEach(cuidador -> cuidador.serNotificado(TipoMensaje.INICIO_DE_VIAJE,""));
-    }
-    void registrarArribo(String destinoArribado){
-        viajeEnCurso.cuidadores
-                .forEach(cuidador -> cuidador.serNotificado(TipoMensaje.ARRIBO,destinoArribado));
-    }
-    void alertarEstado(MedioDeAlerta medioDeAlerta, String mensajeDeAlerta){
-        viajeEnCurso.cuidadores.forEach(cuidador -> cuidador.serNotificado(TipoMensaje.ALERTA, mensajeDeAlerta));
     }
 
+    public void activarNotificaciones() {
+    	notificacionesActivas = true;
+    }
+    
+    public void desactivarNotificaciones() {
+    	notificacionesActivas = false;
+    }
 }
